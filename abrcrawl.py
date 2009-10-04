@@ -81,6 +81,8 @@ def main():
   table = []
   output_file = sys.stdout
   indent_level = None
+  if(len(sys.argv) < 2):
+    return usage()
   try:
     opts, args = getopt.getopt(sys.argv[1:], "hd:p:vf:o:i:", ["help", "date=", "pages=", "verbose", "format=", "output-file=", "indent="])
   except getopt.GetoptError, err:
