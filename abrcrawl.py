@@ -3,6 +3,8 @@
 # ABrCrawl: Crawl pages from Agencia Brasil's images repository webpage
 # and copy the data to a structured database.
 #
+# http://github.com/fczuardi/abrcrawl
+#
 # Copyright (c) 2009, Fabricio Zuardi
 # All rights reserved.
 #  
@@ -40,6 +42,7 @@ import getopt
 import re
 import urllib2
 import csv
+import simplejson as json
 
 #CONSTANTS
 AGENCIA_BRASIL_GALLERY_URL = "http://www.agenciabrasil.gov.br/imagens/banco_de_imagens_view/lista"
@@ -55,6 +58,7 @@ verbose = None
 def usage():
   print """
 ABrCrawl v.0.1 (thackday)
+http://github.com/fczuardi/abrcrawl
 
 Crawl pages from Agencia Brasil's image bank webpage and output the contents as
 tabular data.
@@ -64,6 +68,7 @@ Parameters:
   -d, --date:\t\tA starting date in the YYYY/MM/DD format.
   -p, --pages:\t\tThe number of pages to retrieve (ABr uses %s images per page)
   -f, --format:\t\tThe output format. Available formats: %s
+  -i, --indent:\t\tIf output format can be pretty printed(json for example) use the number of white spaces to use as indent level.
   -o, --output-file:\tSave the output to a given filename.
   -v, --verbose:\tPrint extra info while performing the tasks.
 """ % (AGENCIA_BRASIL_PAGE_SIZE, ', '.join(OUTPUT_FORMATS))
@@ -75,8 +80,9 @@ def main():
   results_format = 'csv'
   table = []
   output_file = sys.stdout
+  indent_level = None
   try:
-    opts, args = getopt.getopt(sys.argv[1:], "hd:p:vf:o:", ["help", "date=", "pages=", "verbose", "format=", "output-file="])
+    opts, args = getopt.getopt(sys.argv[1:], "hd:p:vf:o:i:", ["help", "date=", "pages=", "verbose", "format=", "output-file=", "indent="])
   except getopt.GetoptError, err:
     # print help information and exit:
     print str(err) # will print something like "option -a not recognized"
@@ -96,22 +102,26 @@ def main():
       results_format = a
     elif o in ("-o", "--output-file"):
       output_file = file( a, "wb" )
+    elif o in ("-i", "--indent"):
+      indent_level = int(a)
     else:
       assert False, "unhandled option"
   for i in range(1,page_total+1):
     log("Getting page %s" % i)
-    content = get_page(i)
+    content = get_page(i, start_date)
     if content:
       table.extend(extract_data(content))
     else:
       print "No data."
-  print_results(table,results_format,output_file)
+  print_results(table,results_format,output_file, indent_level)
+  output_file.close()
   
 
 
 """Load the contents of a web page. Returns False if error or the content if success.
 """
 def get_page(page_num, start_date=None):
+  log("Start date:%s" % start_date)
   date_range = "getDataPublicacao:date:list=%s+23:59:59&getDataPublicacao_usage=range:max" % (start_date) if start_date else ''
   start = AGENCIA_BRASIL_PAGE_SIZE * page_num - AGENCIA_BRASIL_PAGE_SIZE
   gallery_url = "%s?%s&%s=%s" % (AGENCIA_BRASIL_GALLERY_URL, date_range, AGENCIA_BRASIL_PAGINATION_PARAM, start)
@@ -158,7 +168,7 @@ def extract_data(html, date='unknown'):
       break
   return photos
 
-def print_results(table, fmt, output_file):
+def print_results(table, fmt, output_file, indent):
   if fmt == 'csv':
     keys = table[0].keys()
     #write header
@@ -166,6 +176,9 @@ def print_results(table, fmt, output_file):
     #write rows
     writer = csv.DictWriter(output_file, keys)
     writer.writerows(table)
+  elif fmt == 'json':
+    output = json.dumps(table,indent=indent)
+    output_file.write(output)
   else:
     print str(table)
   
