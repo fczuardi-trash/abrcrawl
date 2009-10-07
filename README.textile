@@ -1,0 +1,70 @@
+h1. ABrCrawl
+
+ABrCrawl is a simple command line tool for crawling the web pages of "Agência Brasil's free Images Archive":http://www.agenciabrasil.gov.br/imagens and extract metadata to a structured table (csv or json file).
+
+h2. Requirements
+
+* Python >= 2.5
+* "simplejson":http://pypi.python.org/pypi/simplejson/
+
+h2. Download
+
+The latest version is available at the "ABrCrawl Git repository":http://github.com/fczuardi/abrcrawl if you have git installed, checkout the repository on your machine:
+
+@git clone git://github.com/fczuardi/abrcrawl.git@
+
+Or if you prefer, just "download the latest version zip file":http://github.com/fczuardi/abrcrawl/zipball/master
+
+h2. Usage
+
+The main script is the *abrcrawl.py*, you can call it using the *help* argument to get a list of available options:
+
+@python abrcrawl.py --help@
+
+h2. Contribute
+
+ABrCrawl is a free and open source software, if you find a bug or have any suggestions and patches to send and make it better, please use the "ABrCrawl Github page":http://github.com/fczuardi/abrcrawl either to file an issue or to send a pull request. Alternatively, you can "contact me directly":http://fabricio.org.
+
+h2. Software License (BSD)
+
+bq..  Copyright (c) 2009, Fabricio Zuardi
+  All rights reserved.
+   
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+  
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in
+      the documentation and/or other materials provided with the
+      distribution.
+    * Neither the name of the author nor the names of its contributors
+      may be used to endorse or promote products derived from this
+      software without specific prior written permission.
+   
+  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+  "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+  LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+  A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+  OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+  SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+  LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+  DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+  THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+  (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+h2. Content License (CC-Attribution-2.5)
+
+The images and their descriptions produced by Agência Brasil are released under a "Creative Commons Atribuição 2.5. Brasil":http://creativecommons.org/licenses/by/2.5/br/ license, here is the quote (in Portuguese) from the website:
+
+bq.. COBERTURA GRATUITA
+Diariamente, a equipe de repórteres fotográficos da Agência Brasil produz uma média de 100 imagens, diretamente de Brasília, e as distribui gratuitamente para todo o país. Todo esse conteúdo pode ser adquirido em várias definições, inclusive em alta resolução, e ser utilizado livremente, mediante citação do crédito.
+
+h3. Note
+
+Although the majority of images of the image bank are produced by Agência Brasil some photos sometimes comes from a different source, so make sure you check the rights owner of an individual photo before using it on your projects, one way of identifying if the photo came from Agência Brasil is to look for an "/Abr" attached in the end of the photographer's name.
+
+
