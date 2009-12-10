@@ -146,6 +146,16 @@ def get_page(page_num, start_date=None):
     log("Error %s" % e.reason)
   return False
 
+"""Convert a date in Portuguese (9 de Dezembro de 2009) to iso format 2009-12-09
+"""
+def pt_to_iso_date(date_string):
+  months = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
+  for i in range(0,12):
+    date_string = re.sub(r'([0-9]+) de %s de ([0-9]+)\s*' % months[i], r'\2-%s-\1' % (i+1), date_string)
+  date_string = re.sub(r'([0-9]+)-([0-9])-([0-9]+)', r'\1-0\2-\3', date_string)
+  date_string = re.sub(r'([0-9]+)-([0-9]+)-([0-9])', r'\1-\2-0\3', date_string)
+  return date_string
+
 def extract_data(html, date='unknown'):
   photos = []
   last_date = date
@@ -162,7 +172,7 @@ def extract_data(html, date='unknown'):
         'thumbnail_url' : matches.group(2),
         'author' : matches.group(3),
         'description' : matches.group(4),
-        'pub_day' : last_date,
+        'pub_day' : pt_to_iso_date(last_date),
         'photo_page' : matches.group(1),
       })
       html = matches.string[matches.end(4):]
