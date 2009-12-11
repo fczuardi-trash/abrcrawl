@@ -51,7 +51,6 @@ verbose = None
 #CONSTANTS
 AGENCIA_BRASIL_IMAGES_FOLDER = "http://www.agenciabrasil.gov.br/media/imagens/"
 AGENCIA_BRASIL_VIEW_POSTFIX = "/view"
-CSV_IMAGE_URL_COLUMN = 2
 
 def usage():
   print """
@@ -73,9 +72,6 @@ Parameters:
 
 
 def updateRow(row, img, img_path):
-  if len(row) != 5:
-    log('ERROR')
-    return row
   photo_format = img.format
   photo_width = img.size[0]
   photo_height = img.size[1]
