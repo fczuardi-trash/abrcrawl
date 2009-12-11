@@ -6,6 +6,29 @@ h2. Requirements
 
 * Python >= 2.5
 * "simplejson":http://pypi.python.org/pypi/simplejson/
+* "jpeglib":http://www.ijg.org
+* "PIL":http://www.pythonware.com/products/pil/
+
+h3. Mac
+
+h4. Installing jpeglib and PIL on Mac OSX 10.6 (Snow Leopard)
+
+From http://proteus-tech.com/blog/cwt/install-pil-in-snow-leopard/
+
+bq.. “Next, I download libjpeg latest version (http://www.ijg.org/files/jpegsrc.v7.tar.gz), untar it, and configure it:
+    $ tar zxvf jpegsrc.v7.tar.gz
+    $ cd jpeg-7
+    $ ./configure --enable-shared --enable-static
+    $ make
+    $ sudo make install
+Now, you just installed libjpeg into /usr/local/lib. So, it's time to install PIL. Download the PIL source code from http://effbot.org/downloads/Imaging-1.1.6.tar.gz then untar it:
+    $ tar zxvf Imaging-1.1.6.tar.gz
+    $ cd Imaging-1.1.6
+This is the trick, you must open setup.py with your prefered text editor then looking for the line JPEG_ROOT = None and then it to JPEG_ROOT = libinclude("/usr/local") then save the file and continue:
+    $ python setup.py build
+If everything fine, you can install PIL to your system library. If the PIL need something that didn't exist, it will tell you on the error message. You may install the missing library via fink or download and compile it by yourself. Then install the PIL as root:
+    $ sudo python setup.py install --optimize=1
+Done. :)”
 
 h2. Download
 
