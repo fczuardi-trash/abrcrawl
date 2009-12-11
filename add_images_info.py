@@ -83,7 +83,11 @@ def updateRow(row, img, img_path):
   exif_make = ''
   exif_model = ''
   exif_software = ''
-  exif_info = img._getexif()
+  exif_info = None
+  try:
+    exif_info = img._getexif()
+  except Exception as e:
+    pass
   if exif_info:
     for tag, value in exif_info.items():
       decoded = str(TAGS.get(tag, tag))
