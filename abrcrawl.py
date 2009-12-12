@@ -186,7 +186,7 @@ def print_results(table, fmt, output_file, indent):
     #write header
     output_file.write("%s\n" % ','.join(keys))
     #write rows
-    writer = csv.DictWriter(output_file, keys)
+    writer = csv.DictWriter(output_file, keys, quoting=csv.QUOTE_ALL)
     writer.writerows(table)
   elif fmt == 'json':
     output = json.dumps(table,indent=indent)
