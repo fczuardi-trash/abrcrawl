@@ -139,7 +139,6 @@ def main():
       input_file = file( a, "r" )
     elif o in ("-d", "--images-dir"):
       images_dir = a
-      images = os.listdir(images_dir)
     elif o in ("-o", "--output-file"):
       output_file = file( a, "wb" )
     elif o in ("-c", "--curl-config-file"):
@@ -166,7 +165,7 @@ def main():
     #first row or empty row or empty image url, skip
     if local_filename == '': continue
     #there is no local copy for the image, update the not found image list
-    if local_filename not in images:
+    if not os.path.isfile(image_path):
       not_found_files.append(abr_filename)
       continue
     #local file exists, try to open it
