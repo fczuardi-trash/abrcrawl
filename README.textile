@@ -2,6 +2,16 @@ h1. ABrCrawl
 
 ABrCrawl is a simple command line tool for crawling the web pages of "Agência Brasil's free Images Archive":http://www.agenciabrasil.gov.br/imagens and extract metadata to a structured table (csv or json file).
 
+h2. Important notice
+
+EBC/Agencia Brasil have discontinued the website version that this crawler relied on in the beggining of 2010. Please check "abrcrawl2":https://github.com/fczuardi/abrcrawl2 if you need to crawl the new(2010) version of their image bank.
+
+EBC/Agencia Brasil have replaced the old website with a new (and worst) crappy piece of junk website that broke several links(people in the brazilian government apparently are not aware that "Cool URIs don't change":http://www.w3.org/Provider/Style/URI ) and they have also deleted a good amount of brazilian pictures archive in the process.
+
+The great rich repository of Creative Commons Licensed photos that they use to host, that covered lots of important and historic moments of the brazilian political news (more than 3 years worth of pictures, tens of thousands good quality images) is now gone forever. The new website contains only pictures starting in 2010.
+
+So, I've have recently started a new project "abrcrawl2":https://github.com/fczuardi/abrcrawl2 to crawl and archive content of this new website version, you should use that repository from now on. I am keeping this old code for reference purposes only.
+
 h2. Requirements
 
 * Python >= 2.5

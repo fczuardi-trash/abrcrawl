@@ -150,7 +150,9 @@ def main():
   new_table = []
   not_found_files = []
   corrupted_images = []
+  passed_rows = []
   rows_updated = 1
+  duplicated_rows = 0
   input_reader = csv.DictReader(input_file)
   ignore_url_until = len(AGENCIA_BRASIL_IMAGES_FOLDER)
   ignore_url_after = len(AGENCIA_BRASIL_VIEW_POSTFIX)
@@ -159,13 +161,17 @@ def main():
   #look for the image files in the --images-dir and update the rows with new columns
   log('retrieving local images info…')
   for row in input_reader:
+    if row in passed_rows:
+      duplicated_rows = duplicated_rows + 1
+      continue
+    passed_rows.append(row)
     abr_filename = row['photo_page'][ignore_url_until:-ignore_url_after]
     local_filename = abr_filename.replace('/','_')
     image_path = "%s/%s" % (images_dir,local_filename)
     #first row or empty row or empty image url, skip
     if local_filename == '': continue
     #there is no local copy for the image, update the not found image list
-    if not os.path.isfile(image_path):
+    if not os.path.exists(image_path):
       not_found_files.append(abr_filename)
       continue
     #local file exists, try to open it
@@ -188,7 +194,7 @@ def main():
     curl_config_file.write(curl_config)
   print_results(new_table,output_file)
   # log(new_table)
-  log('Update finished. %s rows updated, %s files missing, %s files corrupted.' % (rows_updated, len(not_found_files), len(corrupted_images)))
+  log('Update finished. %s rows updated, %s duplicated rows ignored, %s files missing, %s files corrupted.' % (rows_updated, duplicated_rows, len(not_found_files), len(corrupted_images)))
 
 def print_results(table, output_file):
   keys = [
